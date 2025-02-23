@@ -9,7 +9,7 @@ const createBtn = document.querySelector('[data-create]');
 const boxContainer = document.getElementById('boxes');
 
 function createBoxes(amount) {
-  boxContainer.innerHTML = ''; // clear
+  const fragment = document.createDocumentFragment(); // create empty fragment (fix)
   for (let i = 0; i < amount; i++) {
     const size = 30 + i * 10; // element size
     const box = document.createElement('div');
@@ -17,8 +17,10 @@ function createBoxes(amount) {
     box.style.width = `${size}px`;
     box.style.height = `${size}px`;
     box.style.backgroundColor = getRandomHexColor();
-    boxContainer.appendChild(box);
+    fragment.appendChild(box) // append to fragment
   }
+  boxContainer.innerHTML = ''; // clear
+  boxContainer.appendChild(fragment); // render into DOM (fix)
 }
 
 function destroyBoxes() {
